@@ -1,0 +1,27 @@
+{
+  "name": "intelimetrica-test-api",
+  "version": "1.0.0",
+  "description": "Repository for intelimetrica test api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Talox11/Intelimetrica-test-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Talox11/Intelimetrica-test-api/issues"
+  },
+  "homepage": "https://github.com/Talox11/Intelimetrica-test-api#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "helmet": "^6.0.0",
+    "morgan": "^1.10.0"
+  }
+}
