@@ -20,8 +20,18 @@ export const createRestaurants = async (req, res) => {
 export const updateRestaurant = (req, res) => {
     res.send('getting Restaurants');
 }
-export const deleteRestaurant = (req, res) => {
-    res.send('creating Restaurant');
+export const deleteRestaurant = async (req, res) => {
+    const { id } = req.params;
+    try {
+      await Restaurant.destroy({
+        where: {
+          id,
+        },
+      });
+      return res.sendStatus(204);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
 }
 export const getRestaurant = async (req, res) => {
     res.send('get restaurant by id');
