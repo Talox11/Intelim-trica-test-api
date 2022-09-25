@@ -5,14 +5,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "api": "nodemon src/index.js"
+    "api": "nodemon src/index.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Talox11/Intelimetrica-test-api.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ing. Pablo Ernesto",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Talox11/Intelimetrica-test-api/issues"
