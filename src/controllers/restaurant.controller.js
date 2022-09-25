@@ -1,6 +1,11 @@
 import { Restaurant } from "../models/restaurant.js";
 
-export const getRestaurants = (req, res) => {
+export const getRestaurants = async (req, res) => {
+
+    const restaurant = await Restaurant.findAll({
+        atributes: ["rating", "name", "site", "email", "phone", "street", "city", "state", "lat", "lng"],
+    });
+    res.json(restaurant);
     res.send('getting Restaurants');
 }
 export const createRestaurants = async (req, res) => {
