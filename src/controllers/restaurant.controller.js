@@ -17,23 +17,23 @@ export const createRestaurants = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
-export const updateRestaurant = async(req, res) => {
+export const updateRestaurant = async (req, res) => {
     try {
         const { id } = req.params;
         const { rating, name, site, email, phone, street, city, state, lat, lng } = req.body;
 
         const restaurant = await Restaurant.findByPk(id);
-        restaurant.rating = rating, 
-        restaurant.name = name, 
-        restaurant.site = site, 
-        restaurant.email = email, 
-        restaurant.phone = phone, 
-        restaurant.street = street, 
-        restaurant.city = city, 
-        restaurant.state = state, 
-        restaurant.lat = lat, 
-        restaurant.lng = lng, 
-        await restaurant.save();
+        restaurant.rating = rating,
+            restaurant.name = name,
+            restaurant.site = site,
+            restaurant.email = email,
+            restaurant.phone = phone,
+            restaurant.street = street,
+            restaurant.city = city,
+            restaurant.state = state,
+            restaurant.lat = lat,
+            restaurant.lng = lng,
+            await restaurant.save();
 
         res.json(restaurant);
     } catch (error) {
@@ -54,7 +54,17 @@ export const deleteRestaurant = async (req, res) => {
     }
 }
 export const getRestaurant = async (req, res) => {
-    res.send('get restaurant by id');
+    const { id } = req.params;
+    try {
+        const restaurant = await Restaurant.findOne({ where: { id } });
+        if(!restaurant)
+            return res.status(404).json({ "message": "No restaurant found" });
+        res.json(restaurant);
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
 
 }
 
