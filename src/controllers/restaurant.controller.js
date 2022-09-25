@@ -1,5 +1,5 @@
 import { Restaurant } from "../models/restaurant.js";
-
+import { sequelize } from "../database/database.js";
 export const getRestaurants = async (req, res) => {
     try {
         const restaurants = await Restaurant.findAll();
@@ -57,9 +57,27 @@ export const getRestaurant = async (req, res) => {
     const { id } = req.params;
     try {
         const restaurant = await Restaurant.findOne({ where: { id } });
-        if(!restaurant)
+        if (!restaurant)
             return res.status(404).json({ "message": "No restaurant found" });
         res.json(restaurant);
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+
+}
+export const getRestaurantsStats = async (req, res) => {
+    const latitude = req.query.latitude
+    const longitude = req.query.longitude
+    const radius = req.query.radius
+
+    console.log(req.query)
+    try {
+        const statsRestaurant = await sequelize.query('SELECT count(*) as count, avg(rating), stddev(rating) FROM public.mexico_restaurantes WHERE ST_DWithin(geom, ST_MakePoint(:long,:lat)::geography, :radius)',
+            { replacements: { lat: latitude, long: longitude, radius: radius }, type: sequelize.QueryTypes.SELECT }
+        )
+        return res.json(statsRestaurant);
     } catch (error) {
         res.status(500).json({
             message: error.message,
