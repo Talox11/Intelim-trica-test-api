@@ -1,7 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import restaurantRoutes from './routes/routes.js'
-
+const port = process.env.PORT || 9000;
 const app = express();
 
 app.use(morgan("dev"));
