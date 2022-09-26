@@ -15,6 +15,7 @@ app.listen(port,() => {
 
 
 app.get('/', (request, response) => {
+    console.log('running');
     response.json({ info: 'Node.js, Express, and Postgres API For Melp '})
 })
 
