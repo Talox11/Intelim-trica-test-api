@@ -7,10 +7,12 @@ async function main() {
   app.listen(4000);
   console.log("Server on port 4000");
 
-
+}
+async function home(){
   app.get('/', (req, res) => {
     res.send('app running');
   });
 }
 
+home();
 main();
