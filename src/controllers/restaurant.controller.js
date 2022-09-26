@@ -11,6 +11,8 @@ export const getRestaurants = async (req, res) => {
 export const createRestaurants = async (req, res) => {
     try {
         const { rating, name, site, email, phone, street, city, state, lat, lng } = req.body;
+        if(rating > 4 || rating < 0) 
+            return res.status(400).json({ "message": "Rating range not valid" });
         const newRestaurant = await Restaurant.create({ rating, name, site, email, phone, street, city, state, lat, lng })
         res.send('restaurant created successfully');
     } catch (error) {
@@ -18,11 +20,18 @@ export const createRestaurants = async (req, res) => {
     }
 }
 export const updateRestaurant = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { rating, name, site, email, phone, street, city, state, lat, lng } = req.body;
+    const { id } = req.params;
+    
+    const { rating, name, site, email, phone, street, city, state, lat, lng } = req.body;
+    const restaurant = await Restaurant.findByPk(id);
 
-        const restaurant = await Restaurant.findByPk(id);
+    try {
+        
+        if(rating > 4 || rating < 0) 
+            return res.status(400).json({ "message": "Rating range not valid" });
+
+        if (!restaurant)
+            return res.status(404).json({ "message": "No restaurant found" });
         restaurant.rating = rating,
             restaurant.name = name,
             restaurant.site = site,
@@ -48,7 +57,7 @@ export const deleteRestaurant = async (req, res) => {
                 id,
             },
         });
-        return res.sendStatus(204);
+        return res.status(204).json({message: 'restaurant deleted successfully'});
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
